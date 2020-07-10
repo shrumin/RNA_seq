@@ -78,13 +78,14 @@ names(demo_master)[names(demo_master) == "Row.names.x"] <- "Row.names"
 names(demo_master)[names(demo_master) == "gene_symbol.x"] <- "gene_symbol"
 master_table=na.omit(demo_master)
 master_table=master_table[c(1,5,2:4,6:59,64,60:63)]
-
+row.names(master_table)=master_table$Row.names
+master_table=master_table[,c(2:64)]
 ########################################################################################################################################################################################################################################################################################################################################################
 
 ##DIFFERENTIAL EXPRESSION TABLE
-Diffexp.CC_vs_HC <- subset(master_table, significance.CC_vs_HC==TRUE | log2fold.CC_vs_HC >0 ,select=c(Row.names,gene_symbol,log2fold.CC_vs_HC,p.CC_vs_HC,p.adj.CC_vs_HC,CC_1,CC_2,CC_3,CC_4,CC_5,CC_6,CC_7,CC_8,CC_9,CC_10,CC_11,CC_12,CC_13,CC_14,HC_1,HC_2,HC_3,HC_4,HC_5,HC_6,HC_7,HC_8,HC_9,HC_10,HC_11,HC_12,HC_13,HC_14,mean))
-Diffexp.FLU_vs_CC <- subset(master_table, significance.FLU_vs_CC==TRUE | log2fold.FLU_vs_CC >0 ,select=c(Row.names,gene_symbol,log2fold.FLU_vs_CC,p.FLU_vs_CC,p.adj.FLU_vs_CC,CC_1,CC_2,CC_3,CC_4,CC_5,CC_6,CC_7,CC_8,CC_9,CC_10,CC_11,CC_12,CC_13,CC_14,FLU_1,FLU_2,FLU_3,FLU_4,FLU_5,FLU_6,FLU_7,FLU_8,FLU_9,FLU_10,FLU_11,FLU_12,FLU_13,FLU_14,mean))
-Diffexp.FLU_vs_HC <- subset(master_table, significance.FLU_vs_HC==TRUE | log2fold.FLU_vs_HC >0 ,select=c(Row.names,gene_symbol,log2fold.FLU_vs_HC,p.FLU_vs_HC,p.adj.FLU_vs_HC,HC_1,HC_2,HC_3,HC_4,HC_5,HC_6,HC_7,HC_8,HC_9,HC_10,HC_11,HC_12,HC_13,HC_14,FLU_1,FLU_2,FLU_3,FLU_4,FLU_5,FLU_6,FLU_7,FLU_8,FLU_9,FLU_10,FLU_11,FLU_12,FLU_13,FLU_14,mean))                           
+Diffexp.CC_vs_HC <- subset(master_table, significance.CC_vs_HC==TRUE | log2fold.CC_vs_HC >0 ,select=c(gene_symbol,log2fold.CC_vs_HC,p.CC_vs_HC,p.adj.CC_vs_HC,CC_1,CC_2,CC_3,CC_4,CC_5,CC_6,CC_7,CC_8,CC_9,CC_10,CC_11,CC_12,CC_13,CC_14,HC_1,HC_2,HC_3,HC_4,HC_5,HC_6,HC_7,HC_8,HC_9,HC_10,HC_11,HC_12,HC_13,HC_14,mean))
+Diffexp.FLU_vs_CC <- subset(master_table, significance.FLU_vs_CC==TRUE | log2fold.FLU_vs_CC >0 ,select=c(gene_symbol,log2fold.FLU_vs_CC,p.FLU_vs_CC,p.adj.FLU_vs_CC,CC_1,CC_2,CC_3,CC_4,CC_5,CC_6,CC_7,CC_8,CC_9,CC_10,CC_11,CC_12,CC_13,CC_14,FLU_1,FLU_2,FLU_3,FLU_4,FLU_5,FLU_6,FLU_7,FLU_8,FLU_9,FLU_10,FLU_11,FLU_12,FLU_13,FLU_14,mean))
+Diffexp.FLU_vs_HC <- subset(master_table, significance.FLU_vs_HC==TRUE | log2fold.FLU_vs_HC >0 ,select=c(gene_symbol,log2fold.FLU_vs_HC,p.FLU_vs_HC,p.adj.FLU_vs_HC,HC_1,HC_2,HC_3,HC_4,HC_5,HC_6,HC_7,HC_8,HC_9,HC_10,HC_11,HC_12,HC_13,HC_14,FLU_1,FLU_2,FLU_3,FLU_4,FLU_5,FLU_6,FLU_7,FLU_8,FLU_9,FLU_10,FLU_11,FLU_12,FLU_13,FLU_14,mean))                           
 ##save the tables
 write.csv(master_table,file = "master_table.csv")
 write.csv(Diffexp.CC_vs_HC,file = "Diffexp.CC_vs_HC.csv")
@@ -129,15 +130,12 @@ plot(pca$x[,1], pca$x[,2],xlab ='PC1',ylab = 'PC2',col=table5$GROUP)
 
 
 ##diff heatmap
-CC_vs_HC=Diffexp.CC_vs_HC[c(2,6:33)]
-FLU_vs_CC=Diffexp.FLU_vs_CC[c(2,6:33)]
-FLU_vs_HC=Diffexp.FLU_vs_HC[c(2,6:33)]
-rownames(CC_vs_HC) <- CC_vs_HC$gene_symbol
-rownames(FLU_vs_HC) <- FLU_vs_HC$gene_symbol
-rownames(FLU_vs_CC) <- FLU_vs_CC$gene_symbol
-CC_vs_HC=CC_vs_HC[c(2:29)]
-FLU_vs_CC=FLU_vs_CC[c(2:29)]
-FLU_vs_HC=FLU_vs_HC[c(2:29)]
+CC_vs_HC=Diffexp.CC_vs_HC[c(2,6:32)]
+FLU_vs_CC=Diffexp.FLU_vs_CC[c(2,6:32)]
+FLU_vs_HC=Diffexp.FLU_vs_HC[c(2,6:32)]
+CC_vs_HC=CC_vs_HC[c(2:28)]
+FLU_vs_CC=FLU_vs_CC[c(2:28)]
+FLU_vs_HC=FLU_vs_HC[c(2:28)]
 Scaled_FLU_vs_HC=scale(FLU_vs_HC)
 Scaled_FLU_vs_CC=scale(FLU_vs_CC)
 Scaled_CC_vs_HC=scale(CC_vs_HC)
