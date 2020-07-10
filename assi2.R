@@ -129,15 +129,12 @@ plot(pca$x[,1], pca$x[,2],xlab ='PC1',ylab = 'PC2',col=table5$GROUP)
 
 
 ##diff heatmap
-CC_vs_HC=Diffexp.CC_vs_HC[c(2,6:33)]
-FLU_vs_CC=Diffexp.FLU_vs_CC[c(2,6:33)]
-FLU_vs_HC=Diffexp.FLU_vs_HC[c(2,6:33)]
-rownames(CC_vs_HC) <- CC_vs_HC$gene_symbol
-rownames(FLU_vs_HC) <- FLU_vs_HC$gene_symbol
-rownames(FLU_vs_CC) <- FLU_vs_CC$gene_symbol
-CC_vs_HC=CC_vs_HC[c(2:29)]
-FLU_vs_CC=FLU_vs_CC[c(2:29)]
-FLU_vs_HC=FLU_vs_HC[c(2:29)]
+CC_vs_HC=Diffexp.CC_vs_HC[c(2,6:32)]
+FLU_vs_CC=Diffexp.FLU_vs_CC[c(2,6:32)]
+FLU_vs_HC=Diffexp.FLU_vs_HC[c(2,6:32)]
+CC_vs_HC=CC_vs_HC[c(2:28)]
+FLU_vs_CC=FLU_vs_CC[c(2:28)]
+FLU_vs_HC=FLU_vs_HC[c(2:28)]
 Scaled_FLU_vs_HC=scale(FLU_vs_HC)
 Scaled_FLU_vs_CC=scale(FLU_vs_CC)
 Scaled_CC_vs_HC=scale(CC_vs_HC)
